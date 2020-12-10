@@ -16,7 +16,7 @@ cap_vid0 = cv.VideoCapture("datas/videos/Armbot.mp4")
 cap_vid1 = cv.VideoCapture("datas/videos/roadway_01.mp4")
 cap_cam0 = cv.VideoCapture(0)
 cap_cam1 = cv.VideoCapture(2)
-
+z = np.array((240,240,3),np.uint8)
 try:
     while cap_cam0.isOpened or cap_cam1.isOpened:
             ret0, cam0 = cap_cam0.read()
@@ -31,9 +31,12 @@ try:
             # print(cam0.shape)
             # print(cam1.shape)
 
+            
             test1 = np.hstack((grayToBGR,img_resized,vid0))
             test2 = np.hstack((cam0,cam1))
             test3 = np.vstack((test1,test2))
+            
+            
             cv.imshow("test",test3)
             if cv.waitKey(30) == ord('q'):break
 
