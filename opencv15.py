@@ -5,14 +5,15 @@ cwd = os.getcwd()
 cascade = cv.CascadeClassifier(cwd + "/datas/haar_cascade_files/haarcascade_eye.xml")
 
 img = cv.imread(cwd + "/datas/images/people.jpg") 
-# img_r = cv.resize(img,(1600,1000))
+print(img.shape)
+img = cv.resize(img,(1280,1920))
 img_gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 eyes = cascade.detectMultiScale(img_gray, 1.1, 4)
 count=0
-
+print(eyes.shape)
 for (x, y, w, h) in eyes:
+    
     count = count + 1
-    cwd = os.getcwd()
     dir_name = cwd + "/datas/images/cropped_images_eyes"
     cv.rectangle(img, (x, y), (x+w, y+h), (255, 0, 0), 2)
     
@@ -26,4 +27,3 @@ for (x, y, w, h) in eyes:
     cv.imwrite(dir_name + "/image_" + str(count) + ".jpg", img_cropped)
 
     cv.waitKey(0)
-    

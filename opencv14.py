@@ -3,6 +3,7 @@ import os
 
 cascade = cv.CascadeClassifier("datas/haar_cascade_files/haarcascade_frontalface_default.xml")
 img = cv.imread('datas/images/faces.jpg')
+img = cv.resize(img,(1600,1000))
 imgGray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
 faces = cascade.detectMultiScale(imgGray, 1.1, 4)
@@ -23,7 +24,7 @@ for (x, y, w, h) in faces:
     cv.imwrite(dir_name + "/image_" + str(count) + ".jpg", img_cropped)
 
     cv.waitKey(0)
-    
+
 
 
 
