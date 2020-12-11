@@ -6,7 +6,7 @@ cascade = cv.CascadeClassifier(cwd + "/datas/haar_cascade_files/haarcascade_eye.
 
 img = cv.imread(cwd + "/datas/images/people.jpg") 
 print(img.shape)
-img = cv.resize(img,(1280,1920))
+# img = cv.resize(img,None, fx=0.25,fy=0.25)
 img_gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 eyes = cascade.detectMultiScale(img_gray, 1.1, 4)
 count=0

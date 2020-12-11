@@ -9,7 +9,7 @@ def frame_diff(prev_frame, cur_frame, next_frame):
     return_diff = cv.absdiff(diff_frames_1, diff_frames_2)
     threshold = len(return_diff[np.where(return_diff > 2)])
     if threshold > 500: print('threshold > 200 : ', threshold)
-    return return_diff
+    return diff_frames_1
 
 def get_frame(cap, scalar):
     _, frame = cap.read()
@@ -26,7 +26,9 @@ def main():
 
     try:
         while True: 
-            cv.imshow('Object Movement', frame_diff(prev_frame,cur_frame, next_frame))
+            frame = frame_diff(prev_frame,cur_frame, next_frame)
+            frame = cv.resize(frame,(1600,1000))
+            cv.imshow('Object Movement', frame)
             prev_frame = cur_frame
             cur_frame = next_frame
             next_frame = get_frame(cap, scaling)
