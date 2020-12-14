@@ -38,7 +38,7 @@ def main():
     cv.destroyAllWindows()
 
 main()
-
+#https://pinkwink.kr/1264
 
 
 
