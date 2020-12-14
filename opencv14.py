@@ -1,5 +1,6 @@
 import cv2 as cv 
 import os 
+## cv.CascadeClassifier
 
 cascade = cv.CascadeClassifier("datas/haar_cascade_files/haarcascade_frontalface_default.xml")
 img = cv.imread('datas/images/faces.jpg')

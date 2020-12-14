@@ -2,8 +2,9 @@ import cv2 as cv
 import matplotlib.pyplot as plt
 import pytesseract
 from pytesseract import Output
+## cv.threshold
 
-img = cv.imread('datas/images/reciept_kor_2.jpg',cv.IMREAD_GRAYSCALE)
+img = cv.imread('datas/images/reciept_kor_2.jpg',cv.IMREAD_GRAYSCALE)  
 ret,thresh1 = cv.threshold(img,127,255,cv.THRESH_BINARY) # 127<pixel=0
 ret,thresh2 = cv.threshold(img,127,255,cv.THRESH_BINARY_INV) # 127>pixel=0
 ret,thresh3 = cv.threshold(img,127,255,cv.THRESH_TRUNC) # 127<pixel=pixel
@@ -22,7 +23,7 @@ for i in range(6):
 plt.show()
 
 custom_config = r'--oem 3 --psm 6 -l kor+eng'
-words = pytesseract.image_to_data(thresh4, config = custom_config, output_type=Output.DICT)
+words = pytesseract.image_to_data(thresh4, config = custom_config, output_type=Output.DICT) ## pytesseract
 
 n_boxes = len(words['text'])
 print(n_boxes)

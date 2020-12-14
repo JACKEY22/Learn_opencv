@@ -1,6 +1,7 @@
 import cv2 as cv 
 import os 
 import numpy as np
+## cv.absdiff
 
 def frame_diff(prev_frame, cur_frame, next_frame):
 

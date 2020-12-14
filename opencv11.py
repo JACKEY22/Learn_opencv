@@ -1,4 +1,6 @@
 import cv2 as cv 
+## cv.VideoWriter_fourcc
+## cv.VideoWriter
 
 cap = cv.VideoCapture(0)
 #cap.set() 640 480 fps

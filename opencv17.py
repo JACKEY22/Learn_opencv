@@ -3,8 +3,10 @@ import pytesseract
 from pytesseract import Output
 
 img = cv.imread("datas/images/3.png")
+
 # def threshold(img):
 #     return cv.threshold(img, 50,255,cv.THRESH_BINARY+cv.THRESH_OTSU)[1] ## based on 50 -> 0 / 255
+
 print(img.shape)
 img_gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
 # img_gray = threshold(img_gray)

@@ -1,5 +1,6 @@
 import cv2 as cv 
 import os 
+## cv.CascadeClassifier
 
 cwd = os.getcwd()
 cascade = cv.CascadeClassifier(cwd + "/datas/haar_cascade_files/haarcascade_eye.xml")

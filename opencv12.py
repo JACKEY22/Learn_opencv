@@ -1,4 +1,5 @@
 import cv2 as cv 
+## img[200:260,90:160] crop 
 
 img = cv.imread("datas/images/lambo.png")
 cv.imshow("img",img)
