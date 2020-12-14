@@ -8,6 +8,14 @@ def get_points(event, x, y, flags, param):
         print(f'{x},{y}')
         points.append([x, y])
 
+def align(image):
+    cv.namedWindow('view') 
+    cv.setMouseCallback('view', get_points, image) 
+    cv.imshow('view', image) 
+    if cv.waitKey(0) == ord('q'):
+        print("start detection...")
+
+        
 def make_canny(image):
     gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
     blur = cv.GaussianBlur(gray,(3,3),0)
@@ -22,7 +30,7 @@ def make_ROI(image):
         ignore_mask_color = 255
 
     mask = np.zeros_like(image)
-    area = np.array([[(500,360),(650,360),(1020,719),(270,719)]], np.int32)
+    area = np.array([[(points[0][0],points[0][1]),(points[1][0],points[1][1]),(points[2][0],points[2][1]),(points[3][0],points[3][1])]], np.int32)
     cv.fillPoly(mask, area, ignore_mask_color) ## filling ROI of mask with white
     ROI = cv.bitwise_and(image, mask)
     return ROI
@@ -38,23 +46,32 @@ def get_lines(image):
     draw_lines(line_image, lines)
     return line_image
 
-def main():               
-    cap = cv.VideoCapture("datas/videos/roadway_01.mp4")
+def main():
+    try:
 
-    while cap.isOpened():
+        cap = cv.VideoCapture("datas/videos/roadway_01.mp4")
         ret, image = cap.read()
         canny = make_canny(image)
-        ROI = make_ROI(canny)
-        line = get_lines(ROI)
+        align(canny)
+        
+        while cap.isOpened():
+            ret, image = cap.read()
+            canny = make_canny(image)
+            
+            ROI = make_ROI(canny)
+            line = get_lines(ROI)
 
-        image_with_line = cv.addWeighted(image, 0.7, line, 0.6, 0) 
+            image_with_line = cv.addWeighted(image, 0.7, line, 0.6, 0) 
 
-        cv.imshow("canny", image_with_line)
-        if cv.waitKey(20) == ord('q'):
-            break
+            cv.imshow("detection", image_with_line)
+            if cv.waitKey(10) == ord('q'):
+                break
 
-    cap.release()
-    cv.destroyAllWindows()
+    except:
+        pass
+    finally:
+        cap.release()
+        cv.destroyAllWindows()
 
 if __name__ == '__main__':
     main()
