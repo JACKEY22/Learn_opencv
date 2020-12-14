@@ -1,6 +1,13 @@
 import cv2 as cv 
 import numpy as np
 
+points = list()
+
+def get_points(event, x, y, flags, param):
+    if event == cv.EVENT_LBUTTONDOWN: 
+        print(f'{x},{y}')
+        points.append([x, y])
+
 def make_canny(image):
     gray = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
     blur = cv.GaussianBlur(gray,(3,3),0)
@@ -49,7 +56,8 @@ def main():
     cap.release()
     cv.destroyAllWindows()
 
-main()
+if __name__ == '__main__':
+    main()
 #https://pinkwink.kr/1264
 
 
