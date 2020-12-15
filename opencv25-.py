@@ -3,12 +3,15 @@ import numpy as np
 
 points = list()
 
+def nothing():
+    pass
+
 def get_points(event, x, y, flags, param):
     if event == cv.EVENT_LBUTTONDOWN: 
         print(f'{x},{y}')
         points.append([x, y])
 
-def align(image):
+def set_ROI(image):
     cv.namedWindow('view') 
     cv.setMouseCallback('view', get_points, image) 
     cv.imshow('view', image) 
@@ -52,19 +55,30 @@ def main():
         cap = cv.VideoCapture("datas/videos/roadway_01.mp4")
         ret, image = cap.read()
         canny = make_canny(image)
-        align(canny)
-        
+        set_ROI(canny)
+
         while cap.isOpened():
             ret, image = cap.read()
             canny = make_canny(image)
             
+            
+            cv.namedWindow("view")
+            cv.createTrackbar('low threshold', 'view', 0, 1000, nothing)
+            cv.createTrackbar('high threshold', 'view', 0, 1000, nothing)
+
+            low = cv.getTrackbarPos('low threshold', 'view')
+            high = cv.getTrackbarPos('high threshold', 'view')
+            thresh = cv.Canny(canny, low, high)
+            cv.imshow('view', thresh)
+            cv.waitKey(15)
+                
+
             ROI = make_ROI(canny)
             line = get_lines(ROI)
-
-            image_with_line = cv.addWeighted(image, 0.7, line, 0.6, 0) 
-
+            image_with_line = cv.addWeighted(image, 0.7, line, 0.6, 0.2) 
             cv.imshow("detection", image_with_line)
-            if cv.waitKey(10) == ord('q'):
+            
+            if cv.waitKey(15) == ord('q'):
                 break
 
     except:
@@ -75,6 +89,21 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #https://pinkwink.kr/1264
 
 
