@@ -3,7 +3,6 @@ import matplotlib.pyplot as plt
 import pytesseract
 from pytesseract import Output
 ## cv.threshold
-
 img = cv.imread('datas/images/reciept_kor_2.jpg',cv.IMREAD_GRAYSCALE)  
 ret,thresh1 = cv.threshold(img,127,255,cv.THRESH_BINARY) # 127<pixel=0
 ret,thresh2 = cv.threshold(img,127,255,cv.THRESH_BINARY_INV) # 127>pixel=0

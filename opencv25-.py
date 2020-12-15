@@ -33,7 +33,7 @@ def make_ROI(image):
         ignore_mask_color = 255
 
     mask = np.zeros_like(image)
-    area = np.array([[(points[0][0],points[0][1]),(points[1][0],points[1][1]),(points[2][0],points[2][1]),(points[3][0],points[3][1])]], np.int32)
+    area = np.array([[(points[0][0],points[0][1]),(points[1][0],points[1][1]),(points[2][0],points[2][1]),(points[3][0],points[3][1])]], np.int8)
     cv.fillPoly(mask, area, ignore_mask_color) ## filling ROI of mask with white
     ROI = cv.bitwise_and(image, mask)
     return ROI
@@ -90,21 +90,7 @@ def main():
 if __name__ == '__main__':
     main()
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#https://pinkwink.kr/1264
+# ref : https://pinkwink.kr/1264
 
 
 
